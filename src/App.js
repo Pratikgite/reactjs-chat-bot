@@ -1,23 +1,40 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import BotReply from "./bot/botReply";
 
 function App() {
+  const [ apiParam, setApiParam ] = useState("");
+  const [ msg, setMsg ] = useState("");
+
+  const send = (e) => {
+    e.preventDefault();
+    setApiParam(msg);
+    console.log(apiParam);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="box">
+          <div className="item">
+              <div className="icon">
+                  <i className="fa fa-user"></i>
+              </div>
+              <div className="msg">
+                  <p>Hello, What are you Looking For?</p>
+              </div>
+          </div>
+          <BotReply/>
+      </div>
+      
+      <form onSubmit={send} >
+        <div className="typing-area">
+            <div className="input-field">
+                <input type="text" id="clientChat" value={msg} placeholder="Type your message" onChange={ (e) => { setMsg(e.target.value) } } required />
+            </div>
+            <button className='btn'>Send</button>
+        </div>
+      </form>
+
     </div>
   );
 }
